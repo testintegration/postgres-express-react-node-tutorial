@@ -8,6 +8,7 @@ module.exports - {
 
 */
 const Todo = require('../models').Todo; // it knows to find ToDo exports
+const TodoItem = require('../models').TodoItem;
 
 /*The above code snippet creates a new todo and if successful, it returns it. If it encounters an error, it returns that error instead.
 (Granted, this isn't the best way to handle these errors, but we'll go with it for now, for the sake of simplicity. ;))*/
@@ -26,6 +27,7 @@ which is a function that passes the request on to the next route handler (meanin
 */
 module.exports = {
   create(req, res) {
+    console.log('req.body.title: ' + req.body.title);
     return Todo
       .create({
         title: req.body.title,
@@ -33,4 +35,32 @@ module.exports = {
       .then(todo => res.status(201).send(todo))
       .catch(error => res.status(400).send(error));
   },
+/*
+  list(req, res) {
+    return Todo
+      .all()
+      .then(todos => res.status(200).send(todos))
+      .catch(error => res.status(400).send(error));
+  },
+  */
+  /*
+
+  In the above code snippet, we find all todos and include all associated todoitems from the TodoItem model.
+  We include them as todoItems, as we did when defining the relationship in the Todo model.
+  Remember to require the TodoItem model at the top of your server/controllers/todos.js file.
+
+    */
+
+  list(req, res) {
+    return Todo
+      .findAll({
+        include: [{
+          model: TodoItem,
+          as: 'todoItems',
+        }],
+      })
+      .then(todos => res.status(200).send(todos))
+      .catch(error => res.status(400).send(error));
+  },
+
 };

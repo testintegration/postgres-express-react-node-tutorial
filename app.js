@@ -5,7 +5,9 @@ const bodyParser = require('body-parser');
 
 // Set up the express app
 const app = express();
-
+// why is it production by default
+console.log('env: ' + process.env.NODE_ENV);
+console.log('app.get: ' + app.get('env'));
 // Log requests to the console.
 app.use(logger('dev'));
 

@@ -39,5 +39,7 @@ We are going to have two models, Todo and TodoItem. The relationship between a T
 #sequelize model:create --name TodoItem --attributes content:string,complete:boolean
 
 #sequelize db:migrate
+weird thing is after this, these 2 tables do not show under tables in pgAdmin4
+
 
 ## Create a routes folder inside the server folder

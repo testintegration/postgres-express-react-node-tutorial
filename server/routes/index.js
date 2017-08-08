@@ -9,13 +9,21 @@ instead of defining /api, /api/tools here
 
 */
 const todosController = require('../controllers').todos;
+const todoItemsController = require('../controllers').todoItems;
 
 module.exports = (app) => { //send back a JSON object
   app.get('/api', (req, res) => res.status(200).send({
     message: 'Welcome to the Todos API!',
   }));
 
+  // post with a title
   app.post('/api/todos', todosController.create);
+
+  // get all records
+  app.get('/api/todos', todosController.list);
+
+  // post with to do id
+  app.post('/api/todos/:todoId/items', todoItemsController.create);
 };
 
 /*
