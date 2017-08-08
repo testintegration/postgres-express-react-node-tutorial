@@ -24,6 +24,13 @@ module.exports = (app) => { //send back a JSON object
 
   // post with to do id
   app.post('/api/todos/:todoId/items', todoItemsController.create);
+
+  app.get('/api/todos/:todoId', todosController.retrieve);
+
+  // update with a title param
+  app.put('/api/todos/:todoId', todosController.update);
+
+  app.delete('/api/todos/:todoId', todosController.destroy);
 };
 
 /*
